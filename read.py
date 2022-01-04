@@ -3,13 +3,19 @@ from PIL import Image
 import streamlit as st
 from pdf2image import convert_from_path, convert_from_bytes
 import fitz
-
+from pathlib import Path
 #poetry export -f requirements.txt --output requirements.txt --without-hashes
 
 pytesseract.pytesseract.tesseract_cmd = r'C:\Program Files\Tesseract-OCR\tesseract.exe'
 #poppler_path = r'C:\Users\TomMul\Downloads\poppler-0.68.0\bin'
 pdf_to_split = r'C:\Users\TomMul\Brightcape BV\ProjectenBrightCape - 210920 - Nunner Uren tool\TEST_DATA_URENTOOL\INPUT\FORMS\form_template_added_training - sample.pdf'
 
+docker_cwd = Path.cwd()
+print(docker_cwd)
+
+
+
+from pathlib import Path
 test_ocr = False
 test_local_pdf_split = False
 test_web_pdf_split = True
@@ -80,7 +86,10 @@ if test_web_pdf_split:
             st.text(page)
             pix = page.get_pixmap()  # render page to an image
             #o_path = fr'C:\Users\TomMul\Brightcape BV\ProjectenBrightCape - 210920 - Nunner Uren tool\TEST_DATA_URENTOOL\INPUT\FORMS\output_fitz\from_upload {page.number} splitted_img.png'
-            o_path = f"data/out/{ct} splitted_img.png"
+
+
+
+            o_path = docker_cwd / "data" / "out" / f"{ct} splitted_img.png"
             pix.save(o_path)
             #pix.save("data/out/page-%i.png" % page.number)  # store image as a PNG
 
@@ -96,7 +105,7 @@ if test_web_pdf_split:
             with col1:  # col1 for selector
                 im_id = st.number_input('select img', min_value=1, max_value=nr_forms)
             with col2:  # display the image in second colu
-                i_path = f"data/out/{im_id} splitted_img.png"
+                i_path = docker_cwd / "data" / "out" / f"{im_id} splitted_img.png"
                 select_im = Image.open(i_path)
                 st.image(select_im, channels="BGR")
 
