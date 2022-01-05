@@ -1,7 +1,6 @@
 import pytesseract
 from PIL import Image
 import streamlit as st
-from pdf2image import convert_from_path, convert_from_bytes
 import fitz
 from pathlib import Path
 #poetry export -f requirements.txt --output requirements.txt --without-hashes
@@ -17,18 +16,12 @@ footer {visibility: hidden;}
 st.markdown(hide_streamlit_style, unsafe_allow_html=True)
 
 
-pytesseract.pytesseract.tesseract_cmd = r'C:\Program Files\Tesseract-OCR\tesseract.exe'
-#poppler_path = r'C:\Users\TomMul\Downloads\poppler-0.68.0\bin'
-pdf_to_split = r'C:\Users\TomMul\Brightcape BV\ProjectenBrightCape - 210920 - Nunner Uren tool\TEST_DATA_URENTOOL\INPUT\FORMS\form_template_added_training - sample.pdf'
-
 docker_cwd = Path.cwd()
-print(docker_cwd)
 
-
-
-from pathlib import Path
-test_ocr = False
+test_ocr = True
+#pytesseract.pytesseract.tesseract_cmd = r'C:\Program Files\Tesseract-OCR\tesseract.exe'
 test_local_pdf_split = False
+#pdf_to_split = r'C:\Users\TomMul\Brightcape BV\ProjectenBrightCape - 210920 - Nunner Uren tool\TEST_DATA_URENTOOL\INPUT\FORMS\form_template_added_training - sample.pdf'
 test_web_pdf_split = True
 
 if test_ocr:
@@ -121,12 +114,5 @@ if test_web_pdf_split:
                 st.image(select_im, channels="BGR")
 
             st.text(f"selected path : {i_path}")
-
-
-    # print(f"NR of images {len(my_pdf_upload_splitted)}")
-    # st.text(f"NR of images - from path {len(my_pdf_upload_splitted)} ")
-    #
-    # for single_page in my_pdf_upload_splitted:
-    #     st.text(f"{single_page}")
 
 
