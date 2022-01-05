@@ -6,6 +6,17 @@ import fitz
 from pathlib import Path
 #poetry export -f requirements.txt --output requirements.txt --without-hashes
 
+
+
+hide_streamlit_style = """
+<style>
+#MainMenu {visibility: hidden;}
+footer {visibility: hidden;}
+</style>
+"""
+st.markdown(hide_streamlit_style, unsafe_allow_html=True)
+
+
 pytesseract.pytesseract.tesseract_cmd = r'C:\Program Files\Tesseract-OCR\tesseract.exe'
 #poppler_path = r'C:\Users\TomMul\Downloads\poppler-0.68.0\bin'
 pdf_to_split = r'C:\Users\TomMul\Brightcape BV\ProjectenBrightCape - 210920 - Nunner Uren tool\TEST_DATA_URENTOOL\INPUT\FORMS\form_template_added_training - sample.pdf'
